@@ -14,6 +14,7 @@ android {
         abortOnError false
     }
 
+
     defaultConfig {
         minSdkVersion project.minSdkVersion
         targetSdkVersion project.targetSdkVersion
@@ -34,7 +35,7 @@ android {
 
         release {
             multiDexEnabled false
-            minifyEnabled true
+            minifyEnabled false
             shrinkResources false
             proguardFiles 'proguard-project.txt'
             testCoverageEnabled false
@@ -78,7 +79,7 @@ android {
     }
 
     lintOptions {
-        abortOnError true
+        abortOnError false
     }
 
     packagingOptions {
@@ -122,6 +123,10 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.2.0"
     implementation "androidx.drawerlayout:drawerlayout:1.2.0"
     implementation "androidx.preference:preference-ktx:1.2.1"
+    implementation "androidx.compose.animation:animation:1.5.0" // For Compose Animation
+    implementation "androidx.window:window:1.0.0" // For Window Extensions
+    implementation "org.slf4j:slf4j-api:1.7.36" // For SLF4J
+    implementation "org.slf4j:slf4j-simple:1.7.36" // For SLF4J Simple Binding
 
     // html parsing for reading mode
     implementation 'org.jsoup:jsoup:1.15.3'

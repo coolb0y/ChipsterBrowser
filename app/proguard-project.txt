@@ -4,6 +4,7 @@
 -dontpreverify
 -verbose
 
+# Keep Android components
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
@@ -11,10 +12,40 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
--keep public class com.cookiegames.smartcookie.settings.*
--keep public class com.cookiegames.smartcookie.settings.fragment.*
--keep public class com.cookiegames.smartcookie.reading.*
 
+# Keep SmartCookie classes
+-keep public class com.cookiegames.smartcookie.settings.**
+-keep public class com.cookiegames.smartcookie.settings.fragment.**
+-keep public class com.cookiegames.smartcookie.reading.**
+
+# Keep Compose Animation classes
+-keep class androidx.compose.animation.tooling.** { *; }
+
+# Keep Window Extensions classes
+-keep class androidx.window.extensions.** { *; }
+-keep class androidx.window.sidecar.** { *; }
+
+# Keep SLF4J classes
+-keep class org.slf4j.** { *; }
+-keep class org.slf4j.impl.** { *; }
+
+# Suppress warnings for missing classes
+-dontwarn androidx.compose.animation.tooling.ComposeAnimation
+-dontwarn androidx.compose.animation.tooling.ComposeAnimationType
+-dontwarn androidx.window.extensions.WindowExtensions
+-dontwarn androidx.window.extensions.WindowExtensionsProvider
+-dontwarn androidx.window.extensions.layout.DisplayFeature
+-dontwarn androidx.window.extensions.layout.FoldingFeature
+-dontwarn androidx.window.extensions.layout.WindowLayoutComponent
+-dontwarn androidx.window.extensions.layout.WindowLayoutInfo
+-dontwarn androidx.window.sidecar.SidecarDeviceState
+-dontwarn androidx.window.sidecar.SidecarDisplayFeature
+-dontwarn androidx.window.sidecar.SidecarInterface$SidecarCallback
+-dontwarn androidx.window.sidecar.SidecarInterface
+-dontwarn androidx.window.sidecar.SidecarProvider
+-dontwarn androidx.window.sidecar.SidecarWindowLayoutInfo
+
+# Remove logging
 -assumenosideeffects class android.util.Log {
     public static *** d(...);
     public static *** v(...);
@@ -22,27 +53,31 @@
     public static *** i(...);
 }
 
+# Keep R classes
 -keepclassmembers class **.R$* {
     public static <fields>;
 }
 
 -keep class **.R$* { *; }
-# this will fix a force close in ReadingActivity
+
+# Keep Jsoup classes
 -keep public class org.jsoup.** {
     public *;
 }
 
-# Without this rule, openFileChooser does not get called on KitKat
+# Keep SmartCookieChromeClient methods
 -keep class com.cookiegames.smartcookie.view.SmartCookieChromeClient {
     void openFileChooser(android.webkit.ValueCallback);
     void openFileChooser(android.webkit.ValueCallback, java.lang.String);
     void openFileChooser(android.webkit.ValueCallback, java.lang.String, java.lang.String);
 }
 
+# Keep native methods
 -keepclasseswithmembernames class * {
     native <methods>;
 }
 
+# Keep constructors
 -keepclasseswithmembers class * {
     public <init>(android.content.Context, android.util.AttributeSet);
 }
@@ -51,38 +86,37 @@
     public <init>(android.content.Context, android.util.AttributeSet, int);
 }
 
+# Keep Activity methods
 -keepclassmembers class * extends android.app.Activity {
    public void *(android.view.View);
 }
 
+# Keep enum methods
 -keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
 
+# Keep Parcelable classes
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
 }
 
-# The support library contains references to newer platform versions.
-# Don't warn about those in case this app is linking against an older
-# platform version.  We know about them, and they are safe.
+# Suppress support library warnings
 -dontwarn android.support.**
 
-# The I2P Java API bundled inside the I2P Android client library contains
-# references to javax.naming classes that Android doesn't have. But those
-# classes are never used on Android, and it is safe to ignore the warnings.
+# Suppress I2P warnings
 -dontwarn net.i2p.crypto.CertUtil
 -dontwarn org.apache.http.conn.ssl.DefaultHostnameVerifier
-
 -dontwarn org.apache.http.HttpHost
 
-# Needed for okhttp
+# Suppress OkHttp warnings
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
 -dontwarn okhttp3.**
 -dontwarn okio.**
 -dontwarn javax.annotation.**
 -dontwarn org.conscrypt.**
-# A resource is loaded with a relative path so the package of this class must be preserved.
+
+# Keep OkHttp PublicSuffixDatabase
 -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase

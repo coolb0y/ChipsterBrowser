@@ -297,7 +297,7 @@ class UserPreferences @Inject constructor(
     /**
      * The index of the proxy choice.
      */
-    var proxyChoice by preferences.enumPreference(PROXY_CHOICE, ProxyChoice.NONE)
+   var proxyChoice by preferences.enumPreference(PROXY_CHOICE, ProxyChoice.MANUAL) 
 
     /**
      * The proxy host used when [proxyChoice] is [ProxyChoice.MANUAL].
@@ -307,7 +307,7 @@ class UserPreferences @Inject constructor(
     /**
      * The proxy port used when [proxyChoice] is [ProxyChoice.MANUAL].
      */
-    var proxyPort by preferences.intPreference(USE_PROXY_PORT, 8118)
+    var proxyPort by preferences.intPreference(USE_PROXY_PORT, 8432) 
 
     /**
      * The index of the search suggestion choice.
