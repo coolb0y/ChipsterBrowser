@@ -97,7 +97,7 @@ class UserPreferences @Inject constructor(
     /**
      * The URL of the selected homepage.
      */
-    var homepage by preferences.stringPreference(HOMEPAGE, SCHEME_HOMEPAGE)
+    var homepage by preferences.stringPreference(HOMEPAGE, "http://chipster/default")
 
     /**
      * True if cookies should be enabled in incognito mode, false otherwise.
@@ -362,8 +362,8 @@ class UserPreferences @Inject constructor(
     var showShortcuts by preferences.booleanPreference(SHOW_SHORTCUTS, true)
 
     // Homepage shortcuts
-    var link1 by preferences.stringPreference(LINK1, "https://github.com")
-    var link2 by preferences.stringPreference(LINK2, "https://google.com")
+    var link1 by preferences.stringPreference(LINK1, "http://chipster")
+    var link2 by preferences.stringPreference(LINK2, "http://chipstersearch")
     var link3 by preferences.stringPreference(LINK3, "https://youtube.com")
     var link4 by preferences.stringPreference(LINK4, "https://speedtest.cookiejarapps.com")
 
